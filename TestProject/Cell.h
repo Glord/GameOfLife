@@ -13,6 +13,5 @@ public:
 
 private:
 	bool is_alive;
-	sf::Color cell_color;
 };
 
