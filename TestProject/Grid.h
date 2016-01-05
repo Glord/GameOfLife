@@ -20,8 +20,6 @@ public:
 	void fillGrid(int size);
 	int countNeighboursAt(int x, int y);
 
-	void addShape();
-
 
 private:
 	vector<vector<Cell>> grid;

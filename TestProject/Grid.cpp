@@ -67,8 +67,3 @@ int Grid::countNeighboursAt(int x, int y)
 		(int)grid[x][y + 1].isAlive() +
 		(int)grid[x + 1][y + 1].isAlive();
 }
-
-void Grid::addShape()
-{
-
-}
