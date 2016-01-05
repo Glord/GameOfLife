@@ -8,6 +8,9 @@ Game::Game() : mWindow(VideoMode(1280, 1024), "SFML App")
 	game_paused = true;
 
 	generations_amount = 0;
+
+	textures.load(textures.start_button, "start.png");
+	shit.setTexture(textures.get(textures.start_button));
 	
 }
 
