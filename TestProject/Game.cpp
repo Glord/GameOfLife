@@ -8,6 +8,9 @@ Game::Game() : mWindow(VideoMode(1280, 1024), "SFML App")
 	game_paused = true;
 
 	generations_amount = 0;
+
+	textures.load(textures.start_button, "start.png");
+	shit.setTexture(textures.get(textures.start_button));
 	
 }
 
@@ -16,9 +19,7 @@ void Game::run()
 	Clock clock;
 	Time timeSinceLastUpdate = Time::Zero;
 
-	board.setGrids(50);
-
-	board.curr_grid->addShape();
+	board.setGrids(80);
 
 	while (mWindow.isOpen())
 	{
@@ -27,7 +28,6 @@ void Game::run()
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
 			timeSinceLastUpdate -= TimePerFrame;
-			//processEvents();
 			update(TimePerFrame);
 		}
 		render();
@@ -49,6 +49,9 @@ void Game::processEvents()
 			break;
 		case Event::Closed:
 			mWindow.close();
+			break;
+		case Event::MouseWheelMoved:
+			if (event.mouseWheel.delta > 0) mWindow.close();
 			break;
 		}
 		if (game_paused)
@@ -99,14 +102,20 @@ void Game::handlePlayerInput(Keyboard::Key key, bool isPressed)
 
 	if (key == Keyboard::D)
 	{
-		time_divider += 2.0f;
-		TimePerFrame = seconds(1.0f / time_divider);
+		if (time_divider < 60.0f)
+		{
+			time_divider += 2.0f;
+			TimePerFrame = seconds(1.0f / time_divider);
+		}
 	}
 
 	if (key == Keyboard::A)
 	{
-		time_divider -= 2.0f;
-		TimePerFrame = seconds(1.0f / time_divider);
+		if (time_divider > 2.0f)
+		{
+			time_divider -= 2.0f;
+			TimePerFrame = seconds(1.0f / time_divider);
+		}
 	}
 
 	if (key == Keyboard::C)
@@ -133,6 +142,4 @@ void Game::handlePlayerInput(Keyboard::Key key, bool isPressed)
 			board.calculateGeneration();
 		}
 	}
-
-
 }
